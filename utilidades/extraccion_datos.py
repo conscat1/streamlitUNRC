@@ -18,16 +18,28 @@ def extraer_datos_spec(html_content):
 
     return opciones
 
-def extraer_datos_articulos(html_content):
-    """Extrae datos de artículos HTML y devuelve una lista de diccionarios con la información."""
+import re
+from bs4 import BeautifulSoup
+from datetime import datetime, timezone, timedelta
+
+# Acepta -, –, —, − con/ sin espacios
+DASHES_RE = re.compile(r'^\s*[-–—−]\s*$')
+
+def extraer_datos_articulos(
+    html_content: str,
+    horas_ventana: int = 36,
+    omitir_mismo_autor_que_el_primero: bool = True,
+    aceptar_vacio_como_guion: bool = False,   # pon True si el "-" se pinta con CSS/JS y te llega vacío
+    separador: str = " - "
+):
+    """Extrae artículos sin calificación (ratingcount = '-') y devuelve lista de dicts."""
     soup = BeautifulSoup(html_content, 'html.parser')
     articulos = soup.find_all('article')
     resultados = []
-
     if not articulos:
-        return resultados  # Retorna una lista vacía.
+        return resultados  # lista vacía
 
-    # Autor de referencia (si existe)
+    # Autor de referencia (si existe) para omitir duplicados si lo deseas
     primer_articulo = articulos[0]
     div_nombre_primero = primer_articulo.select_one('div.mb-3[tabindex="-1"], div.mb-3')
     autor_referencia = (div_nombre_primero.find('a').get_text(strip=True)
@@ -38,38 +50,55 @@ def extraer_datos_articulos(html_content):
         autor_actual = (div_nombre.find('a').get_text(strip=True)
                         if div_nombre and div_nombre.find('a') else None)
 
-        # omite artículos del mismo autor que el primero (si eso es lo que querías)
-        if autor_referencia and autor_actual == autor_referencia:
+        if omitir_mismo_autor_que_el_primero and autor_referencia and autor_actual == autor_referencia:
             continue
 
-        # ---- detección de "sin calificación" robusta ----
+        # --- detección robusta de "sin calificación" ---
         rc = articulo.find('span', class_='ratingcount')
-        txt = rc.get_text(strip=True) if rc else ''
-        if not DASHES_RE.match(txt.replace('\u00a0', ' ')):  # &nbsp; -> espacio normal
+        txt = rc.get_text(strip=True).replace('\u00a0', ' ') if rc else ''
+        sin_calificacion = bool(DASHES_RE.match(txt)) or (aceptar_vacio_como_guion and txt == '')
+        if not sin_calificacion:
             continue
 
-        # ---- ventana de tiempo ----
+        # --- ventana de tiempo ---
+        dentro_de_tiempo = True
         tiempo = articulo.find('time')
         fecha_txt = tiempo.get_text(strip=True) if tiempo else None
+        datetime_tiempo = tiempo.get('datetime') if tiempo else None
+        if datetime_tiempo:
+            try:
+                fecha_publicacion = datetime.fromisoformat(datetime_tiempo.replace('Z', '+00:00'))
+                ahora = datetime.now(timezone.utc)
+                if (ahora - fecha_publicacion) > timedelta(hours=horas_ventana):
+                    dentro_de_tiempo = False
+            except ValueError:
+                # fecha no convertible: deja dentro_de_tiempo=True por defecto
+                pass
 
+        # --- construcción del nombre SIN "de" pegado ---
         autor_txt = (div_nombre.find('a').get_text(strip=True)
-                    if div_nombre and div_nombre.find('a') else None)
+                     if div_nombre and div_nombre.find('a') else None)
 
         if autor_txt and fecha_txt:
-            nombre = f"{autor_txt}-{fecha_txt}"          # usa " - " si prefieres con espacios
+            nombre = f"{autor_txt}{separador}{fecha_txt}"
         elif autor_txt:
             nombre = autor_txt
         elif div_nombre:
-            # Fallback MUY conservador: si no hay <a>, limpia "por " o un "de" pegado (deDIEGO...)
+            # Fallback conservador si no hay <a>: limpia "por " o "de" pegado a mayúscula
             raw = div_nombre.get_text(separator=' ', strip=True)
-            raw = re.sub(r'^por\s*', '', raw, flags=re.IGNORECASE)
-            raw = re.sub(r'^de(?=[A-ZÁÉÍÓÚÑ])', '', raw)  # solo si viene pegado a mayúscula: deDIEGO
+            raw = re.sub(r'^\s*por\s*', '', raw, flags=re.IGNORECASE)
+            raw = re.sub(r'^\s*de(?=[A-ZÁÉÍÓÚÑ])', '', raw)
             nombre = raw or "Nombre no encontrado"
         else:
             nombre = "Nombre no encontrado"
-        resultados.append({"nombre": nombre, "dentro_de_tiempo": dentro_de_tiempo})
+
+        resultados.append({
+            "nombre": nombre,
+            "dentro_de_tiempo": dentro_de_tiempo
+        })
 
     return resultados
+
 
 
 def extraer_otros_datos(html_content, selector):
