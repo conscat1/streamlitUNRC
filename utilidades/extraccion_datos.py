@@ -1,6 +1,7 @@
 # utilidades/extraccion_datos.py
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta, timezone
+import re
 DASHES_RE = re.compile(r'^\s*[-–—−]\s*$')  # acepta -, –, —, − con/ sin espacios
 
 def extraer_datos_spec(html_content):
