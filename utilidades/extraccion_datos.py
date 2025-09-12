@@ -50,22 +50,23 @@ def extraer_datos_articulos(html_content):
 
         # ---- ventana de tiempo ----
         tiempo = articulo.find('time')
-        datetime_tiempo = tiempo.get('datetime') if tiempo else None
-        dentro_de_tiempo = True
-        if datetime_tiempo:
-            try:
-                fecha_publicacion = datetime.fromisoformat(
-                    datetime_tiempo.replace('Z', '+00:00')
-                )
-                fecha_actual = datetime.now(timezone.utc)
-                if (fecha_actual - fecha_publicacion) > timedelta(hours=36):
-                    dentro_de_tiempo = False
-            except ValueError:
-                # Log opcional: fecha no convertible
-                pass
+        fecha_txt = tiempo.get_text(strip=True) if tiempo else None
 
-        nombre = (div_nombre.get_text(strip=True).replace("por ", "")
-                  if div_nombre else "Nombre no encontrado")
+        autor_txt = (div_nombre.find('a').get_text(strip=True)
+                    if div_nombre and div_nombre.find('a') else None)
+
+        if autor_txt and fecha_txt:
+            nombre = f"{autor_txt}-{fecha_txt}"          # usa " - " si prefieres con espacios
+        elif autor_txt:
+            nombre = autor_txt
+        elif div_nombre:
+            # Fallback MUY conservador: si no hay <a>, limpia "por " o un "de" pegado (deDIEGO...)
+            raw = div_nombre.get_text(separator=' ', strip=True)
+            raw = re.sub(r'^por\s*', '', raw, flags=re.IGNORECASE)
+            raw = re.sub(r'^de(?=[A-ZÁÉÍÓÚÑ])', '', raw)  # solo si viene pegado a mayúscula: deDIEGO
+            nombre = raw or "Nombre no encontrado"
+        else:
+            nombre = "Nombre no encontrado"
         resultados.append({"nombre": nombre, "dentro_de_tiempo": dentro_de_tiempo})
 
     return resultados
