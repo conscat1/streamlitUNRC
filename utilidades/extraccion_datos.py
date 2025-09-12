@@ -1,6 +1,7 @@
 # utilidades/extraccion_datos.py
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta, timezone
+DASHES_RE = re.compile(r'^\s*[-–—−]\s*$')  # acepta -, –, —, − con/ sin espacios
 
 def extraer_datos_spec(html_content):
     """Extrae los textos de las opciones de un select HTML."""
@@ -16,7 +17,6 @@ def extraer_datos_spec(html_content):
 
     return opciones
 
-
 def extraer_datos_articulos(html_content):
     """Extrae datos de artículos HTML y devuelve una lista de diccionarios con la información."""
     soup = BeautifulSoup(html_content, 'html.parser')
@@ -24,40 +24,51 @@ def extraer_datos_articulos(html_content):
     resultados = []
 
     if not articulos:
-        return resultados #Retorna una lista vacía.
+        return resultados  # Retorna una lista vacía.
 
+    # Autor de referencia (si existe)
     primer_articulo = articulos[0]
-    div_nombre_primero = primer_articulo.find('div', class_='mb-3', tabindex='-1')
-    autor_referencia = div_nombre_primero.find('a').text.strip() if div_nombre_primero else None
+    div_nombre_primero = primer_articulo.select_one('div.mb-3[tabindex="-1"], div.mb-3')
+    autor_referencia = (div_nombre_primero.find('a').get_text(strip=True)
+                        if div_nombre_primero and div_nombre_primero.find('a') else None)
 
     for articulo in articulos:
-        div_nombre = articulo.find('div', class_='mb-3', tabindex='-1')
-        autor_actual = div_nombre.find('a').text.strip() if div_nombre else None
+        div_nombre = articulo.select_one('div.mb-3[tabindex="-1"], div.mb-3')
+        autor_actual = (div_nombre.find('a').get_text(strip=True)
+                        if div_nombre and div_nombre.find('a') else None)
 
-        if autor_actual == autor_referencia:
+        # omite artículos del mismo autor que el primero (si eso es lo que querías)
+        if autor_referencia and autor_actual == autor_referencia:
             continue
 
-        span_ratingcount = articulo.find('span', class_='ratingcount', string='-')
-        if span_ratingcount:
-            nombre = div_nombre.text.strip().replace("por ", "") if div_nombre else "Nombre no encontrado"
-            tiempo = articulo.find('time')
-            datetime_tiempo = tiempo.get('datetime') if tiempo else None
-            dentro_de_tiempo = True  # Valor por defecto
+        # ---- detección de "sin calificación" robusta ----
+        rc = articulo.find('span', class_='ratingcount')
+        txt = rc.get_text(strip=True) if rc else ''
+        if not DASHES_RE.match(txt.replace('\u00a0', ' ')):  # &nbsp; -> espacio normal
+            continue
 
-            if datetime_tiempo:
-                try:
-                    fecha_publicacion = datetime.fromisoformat(datetime_tiempo.replace('Z', '+00:00'))
-                    fecha_actual = datetime.now(timezone.utc)
-                    diferencia = fecha_actual - fecha_publicacion
+        # ---- ventana de tiempo ----
+        tiempo = articulo.find('time')
+        datetime_tiempo = tiempo.get('datetime') if tiempo else None
+        dentro_de_tiempo = True
+        if datetime_tiempo:
+            try:
+                fecha_publicacion = datetime.fromisoformat(
+                    datetime_tiempo.replace('Z', '+00:00')
+                )
+                fecha_actual = datetime.now(timezone.utc)
+                if (fecha_actual - fecha_publicacion) > timedelta(hours=36):
+                    dentro_de_tiempo = False
+            except ValueError:
+                # Log opcional: fecha no convertible
+                pass
 
-                    if diferencia > timedelta(hours=36):
-                        dentro_de_tiempo = False
-                except ValueError:
-                    print(f"Error al convertir la fecha: {datetime_tiempo}")
-
-            resultados.append({"nombre": nombre, "dentro_de_tiempo": dentro_de_tiempo})
+        nombre = (div_nombre.get_text(strip=True).replace("por ", "")
+                  if div_nombre else "Nombre no encontrado")
+        resultados.append({"nombre": nombre, "dentro_de_tiempo": dentro_de_tiempo})
 
     return resultados
+
 
 def extraer_otros_datos(html_content, selector):
     """Extrae datos utilizando un selector CSS."""
