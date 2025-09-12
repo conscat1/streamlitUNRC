@@ -758,3 +758,710 @@ Collecting usage statistics. To deactivate, set browser.gatherUsageStats to fals
   Network URL: http://100.89.143.250:8501
   External URL: http://185.229.59.60:8501
 
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://100.89.143.250:8501
+  External URL: http://45.143.82.32:8501
+
+  Stopping...
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://100.89.143.250:8501
+  External URL: http://45.143.82.32:8501
+
+2025-08-03 20:03:44,640 - INFO - [CapturaElemento] - Iniciando captura de ELEMENTO en URL: https://urc.cdmx.gob.mx/LAD_A2_2025-1/report/log/user.php?id=7669&course=175&mode=all
+2025-08-03 20:03:44,640 - INFO - [CapturaElemento] - Usando selector: [css selector] 'div.chart-area canvas'
+2025-08-03 20:03:44,640 - INFO - [CapturaElemento] - Configuración de Firefox Headless lista.
+2025-08-03 20:03:47,695 - INFO - [CapturaElemento] - Driver Firefox iniciado.
+2025-08-03 20:03:47,698 - INFO - [CapturaElemento] - Navegando a la página de inicio de sesión: https://urc.cdmx.gob.mx/LAD_A2_2025-1/login/index.php
+2025-08-03 20:03:57,713 - INFO - [CapturaElemento] - Inicio de sesión completado (aparentemente).
+2025-08-03 20:03:57,713 - INFO - [CapturaElemento] - Navegando a la URL objetivo: https://urc.cdmx.gob.mx/LAD_A2_2025-1/report/log/user.php?id=7669&course=175&mode=all
+2025-08-03 20:03:58,182 - INFO - [CapturaElemento] - Esperando carga de la página objetivo (body)...
+2025-08-03 20:03:58,187 - INFO - [CapturaElemento] - Página objetivo cargada (body presente).
+2025-08-03 20:03:58,187 - INFO - [CapturaElemento] - Esperando a que el elemento 'div.chart-area canvas' esté presente...
+2025-08-03 20:04:28,606 - ERROR - [CapturaElemento] - Timeout esperando el elemento 'div.chart-area canvas' en https://urc.cdmx.gob.mx/LAD_A2_2025-1/report/log/user.php?id=7669&course=175&mode=all
+2025-08-03 20:04:29,503 - INFO - [CapturaElemento] - Driver Firefox cerrado.
+2025-08-10 13:04:47,313 - INFO - [CapturaElemento] - Iniciando captura de ELEMENTO en URL: https://urc.cdmx.gob.mx/LAD_A2_2025-1/report/log/user.php?id=7669&course=175&mode=all
+2025-08-10 13:04:47,313 - INFO - [CapturaElemento] - Usando selector: [css selector] 'div.chart-area canvas'
+2025-08-10 13:04:47,313 - INFO - [CapturaElemento] - Configuración de Firefox Headless lista.
+2025-08-10 13:04:50,154 - INFO - [CapturaElemento] - Driver Firefox iniciado.
+2025-08-10 13:04:50,166 - INFO - [CapturaElemento] - Navegando a la página de inicio de sesión: https://urc.cdmx.gob.mx/LAD_A2_2025-1/login/index.php
+2025-08-10 13:05:03,436 - INFO - [CapturaElemento] - Inicio de sesión completado (aparentemente).
+2025-08-10 13:05:03,437 - INFO - [CapturaElemento] - Navegando a la URL objetivo: https://urc.cdmx.gob.mx/LAD_A2_2025-1/report/log/user.php?id=7669&course=175&mode=all
+2025-08-10 13:05:03,965 - INFO - [CapturaElemento] - Esperando carga de la página objetivo (body)...
+2025-08-10 13:05:03,974 - INFO - [CapturaElemento] - Página objetivo cargada (body presente).
+2025-08-10 13:05:03,974 - INFO - [CapturaElemento] - Esperando a que el elemento 'div.chart-area canvas' esté presente...
+2025-08-10 13:05:34,405 - ERROR - [CapturaElemento] - Timeout esperando el elemento 'div.chart-area canvas' en https://urc.cdmx.gob.mx/LAD_A2_2025-1/report/log/user.php?id=7669&course=175&mode=all
+2025-08-10 13:05:35,254 - INFO - [CapturaElemento] - Driver Firefox cerrado.
+Intentando acceder a la página de login: https://urc.cdmx.gob.mx/LAD_A2_2025-1/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22051&mode=1
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22051&mode=1. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22052&mode=1
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22052&mode=1. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22053&mode=1
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22053&mode=1. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22057&mode=1
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22057&mode=1. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22058&mode=1
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22058&mode=1. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22059&mode=1
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22059&mode=1. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22060&mode=1
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22060&mode=1. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22061&mode=1
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22061&mode=1. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22062&mode=1
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22062&mode=1. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22063&mode=1
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22063&mode=1. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22064&mode=1
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22064&mode=1. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22065&mode=1
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22065&mode=1. Status: 503
+Intentando acceder a la página de login: https://urc.cdmx.gob.mx/LAD_A2_2025-1/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/user/index.php?id=175
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/user/index.php?id=175. Status: 503
+Intentando acceder a la página de login: https://urc.cdmx.gob.mx/LAD_A2_2025-1/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/user/index.php?id=175
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/user/index.php?id=175. Status: 503
+Intentando acceder a la página de login: https://urc.cdmx.gob.mx/LAD_A2_2025-1/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22051&mode=1
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22051&mode=1. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22052&mode=1
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22052&mode=1. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22053&mode=1
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/forum/discuss.php?d=22053&mode=1. Status: 503
+Intentando acceder a la página de login: https://urc.cdmx.gob.mx/LAD_A2_2025-1/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4797&group=3820
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4797&group=3820. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4797&group=3826
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4797&group=3826. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4797&group=3832
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4797&group=3832. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4803&group=3820
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4803&group=3820. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4803&group=3826
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4803&group=3826. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4803&group=3832
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4803&group=3832. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4809&group=3820
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4809&group=3820. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4809&group=3826
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4809&group=3826. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4809&group=3832
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4809&group=3832. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4812&group=3820
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4812&group=3820. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4812&group=3826
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4812&group=3826. Status: 503
+Intentando obtener contenido de: https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4812&group=3832
+Error al obtener la URL https://urc.cdmx.gob.mx/LAD_A2_2025-1/mod/assign/view.php?id=4812&group=3832. Status: 503
+  Stopping...
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.1.100:8501
+  External URL: http://189.216.170.167:8501
+
+  Stopping...
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.1.100:8501
+  External URL: http://189.216.170.167:8501
+
+2025-09-08 18:10:47,775 - INFO - [Foro] - Procesando foro 1/3: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+2025-09-08 18:10:47,775 - INFO - [Foro] - Intentando responder en el foro: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+2025-09-08 18:10:50,422 - INFO - [Foro] - Navegador Firefox (ESR) iniciado. Usando binario: /usr/bin/firefox-esr
+2025-09-08 18:10:51,942 - INFO - [Foro] - Navegando a la página de inicio de sesión: https://www.plataforma.unrc.edu.mx/login/index.php
+2025-09-08 18:10:53,173 - INFO - [Foro] - Inicio de sesión completado.
+2025-09-08 18:10:58,255 - INFO - [Foro] - Navegando al foro: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+2025-09-08 18:11:03,256 - INFO - [Foro] - Intentando encontrar el botón 'Responder'...
+2025-09-08 18:11:08,354 - WARNING - [Foro] - No se encontró/clickeó botón 'Responder' después de 45s. Verificando si el editor ya está visible.
+2025-09-08 18:11:08,432 - INFO - [Foro] - [SCREENSHOT] Captura (sin botón responder) guardada en /tmp/error_boton_responder_1757376668.png
+2025-09-08 18:11:28,694 - ERROR - [Foro] - FALLO: No se encontró botón 'Responder' ni editor iframe visible directamente.
+2025-09-08 18:11:28,741 - INFO - [Foro] - [SCREENSHOT] Captura (sin editor) guardada en /tmp/error_sin_editor_1757376688.png
+2025-09-08 18:11:28,741 - ERROR - [Foro] - Ocurrió un error general durante el proceso del foro https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:193:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:511:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+Traceback (most recent call last):
+  File "/home/cons/www/app.py", line 319, in publicar_respuesta_foro
+    responder_button = WebDriverWait(driver, 5).until( # Aumentado a 45s
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cons/www/.venv/lib/python3.12/site-packages/selenium/webdriver/support/wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:193:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:511:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/cons/www/app.py", line 339, in publicar_respuesta_foro
+    WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "id_message_ifr"))) # Aumentado a 20s
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cons/www/.venv/lib/python3.12/site-packages/selenium/webdriver/support/wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:193:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:511:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+2025-09-08 18:11:28,815 - INFO - [Foro] - [SCREENSHOT] Captura (error general) guardada en /tmp/error_general_1757376688.png
+2025-09-08 18:11:29,695 - INFO - [Foro] - Navegador cerrado.
+2025-09-08 18:11:32,696 - INFO - [Foro] - Procesando foro 2/3: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+2025-09-08 18:11:32,697 - INFO - [Foro] - Intentando responder en el foro: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+2025-09-08 18:11:34,525 - INFO - [Foro] - Navegador Firefox (ESR) iniciado. Usando binario: /usr/bin/firefox-esr
+2025-09-08 18:11:36,010 - INFO - [Foro] - Navegando a la página de inicio de sesión: https://www.plataforma.unrc.edu.mx/login/index.php
+2025-09-08 18:11:37,197 - INFO - [Foro] - Inicio de sesión completado.
+2025-09-08 18:11:41,997 - INFO - [Foro] - Navegando al foro: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+2025-09-08 18:11:46,998 - INFO - [Foro] - Intentando encontrar el botón 'Responder'...
+2025-09-08 18:11:52,108 - WARNING - [Foro] - No se encontró/clickeó botón 'Responder' después de 45s. Verificando si el editor ya está visible.
+2025-09-08 18:11:52,187 - INFO - [Foro] - [SCREENSHOT] Captura (sin botón responder) guardada en /tmp/error_boton_responder_1757376712.png
+2025-09-08 18:12:12,469 - ERROR - [Foro] - FALLO: No se encontró botón 'Responder' ni editor iframe visible directamente.
+2025-09-08 18:12:12,517 - INFO - [Foro] - [SCREENSHOT] Captura (sin editor) guardada en /tmp/error_sin_editor_1757376732.png
+2025-09-08 18:12:12,517 - ERROR - [Foro] - Ocurrió un error general durante el proceso del foro https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:193:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:511:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+Traceback (most recent call last):
+  File "/home/cons/www/app.py", line 319, in publicar_respuesta_foro
+    responder_button = WebDriverWait(driver, 5).until( # Aumentado a 45s
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cons/www/.venv/lib/python3.12/site-packages/selenium/webdriver/support/wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:193:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:511:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/cons/www/app.py", line 339, in publicar_respuesta_foro
+    WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "id_message_ifr"))) # Aumentado a 20s
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cons/www/.venv/lib/python3.12/site-packages/selenium/webdriver/support/wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:193:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:511:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+2025-09-08 18:12:12,556 - INFO - [Foro] - [SCREENSHOT] Captura (error general) guardada en /tmp/error_general_1757376732.png
+2025-09-08 18:12:13,283 - INFO - [Foro] - Navegador cerrado.
+2025-09-08 18:12:16,283 - INFO - [Foro] - Procesando foro 3/3: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+2025-09-08 18:12:16,284 - INFO - [Foro] - Intentando responder en el foro: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+2025-09-08 18:12:18,254 - INFO - [Foro] - Navegador Firefox (ESR) iniciado. Usando binario: /usr/bin/firefox-esr
+2025-09-08 18:12:19,543 - INFO - [Foro] - Navegando a la página de inicio de sesión: https://www.plataforma.unrc.edu.mx/login/index.php
+2025-09-08 18:12:20,753 - INFO - [Foro] - Inicio de sesión completado.
+2025-09-08 18:12:25,559 - INFO - [Foro] - Navegando al foro: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+2025-09-08 18:12:30,560 - INFO - [Foro] - Intentando encontrar el botón 'Responder'...
+2025-09-08 18:12:35,662 - WARNING - [Foro] - No se encontró/clickeó botón 'Responder' después de 45s. Verificando si el editor ya está visible.
+2025-09-08 18:12:35,714 - INFO - [Foro] - [SCREENSHOT] Captura (sin botón responder) guardada en /tmp/error_boton_responder_1757376755.png
+2025-09-08 18:12:55,958 - ERROR - [Foro] - FALLO: No se encontró botón 'Responder' ni editor iframe visible directamente.
+2025-09-08 18:12:56,036 - INFO - [Foro] - [SCREENSHOT] Captura (sin editor) guardada en /tmp/error_sin_editor_1757376775.png
+2025-09-08 18:12:56,036 - ERROR - [Foro] - Ocurrió un error general durante el proceso del foro https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:193:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:511:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+Traceback (most recent call last):
+  File "/home/cons/www/app.py", line 319, in publicar_respuesta_foro
+    responder_button = WebDriverWait(driver, 5).until( # Aumentado a 45s
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cons/www/.venv/lib/python3.12/site-packages/selenium/webdriver/support/wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:193:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:511:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/cons/www/app.py", line 339, in publicar_respuesta_foro
+    WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "id_message_ifr"))) # Aumentado a 20s
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cons/www/.venv/lib/python3.12/site-packages/selenium/webdriver/support/wait.py", line 138, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+RemoteError@chrome://remote/content/shared/RemoteError.sys.mjs:8:8
+WebDriverError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:193:5
+NoSuchElementError@chrome://remote/content/shared/webdriver/Errors.sys.mjs:511:5
+dom.find/</<@chrome://remote/content/shared/DOM.sys.mjs:136:16
+
+2025-09-08 18:12:56,076 - INFO - [Foro] - [SCREENSHOT] Captura (error general) guardada en /tmp/error_general_1757376776.png
+2025-09-08 18:12:56,912 - INFO - [Foro] - Navegador cerrado.
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/user/index.php?id=367
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/user/index.php?id=367
+  Stopping...
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.1.100:8501
+  External URL: http://189.216.170.167:8501
+
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/user/index.php?id=367
+  Stopping...
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.1.100:8501
+  External URL: http://189.216.170.167:8501
+
+  Stopping...
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.1.100:8501
+  External URL: http://189.216.170.167:8501
+
+Correo electrónico enviado a efah.240890@gmail.com
+Correo electrónico enviado a ana895239@gmail.com
+Correo electrónico enviado a leonabigail41@gmail.com
+Correo electrónico enviado a irc.adistancia@gmail.com
+Correo electrónico enviado a bportilladiego@gmail.com
+Correo electrónico enviado a gsaravia792@gmail.com
+Correo electrónico enviado a nancy.torres@rcastellanos.cdmx.gob.mx
+Correo electrónico enviado a carlosfcelada@gmail.com
+Correo electrónico enviado a michecid97@gmail.com
+Correo electrónico enviado a anabelzoto82@gmail.com
+Correo electrónico enviado a chiquistigre40@gmail.com
+Correo electrónico enviado a cruzoscar2188@gmail.com
+Correo electrónico enviado a docenteems16@gmail.com
+Correo electrónico enviado a fj3480686@gmail.com
+Correo electrónico enviado a adrixxgomez@gmail.com
+Correo electrónico enviado a gon940259@gmail.com
+Correo electrónico enviado a maugonza0606@gmail.com
+Correo electrónico enviado a d.arely.gch@gmail.com
+Correo electrónico enviado a vitemichel44@gmail.com
+Correo electrónico enviado a 7goxss@gmail.com
+Correo electrónico enviado a ariel.ag956@gmail.com
+Correo electrónico enviado a hernandezcruzedwinemir@gmail.com
+Correo electrónico enviado a conyh619@gmail.com
+Correo electrónico enviado a adanbazan9@gmail.com
+Correo electrónico enviado a selenedelosangeleslopezolivera@gmail.com
+Correo electrónico enviado a vargasbalbina5@gmail.com
+Correo electrónico enviado a moralesvargasantonio24@gmail.com
+Correo electrónico enviado a rikistriquis@gmail.com
+Correo electrónico enviado a orozcoave53@gmail.com
+Correo electrónico enviado a picoperezj@gmail.com
+Se han enviado 30 correos. Esperando 30 segundos...
+Reanudando el envío de correos...
+Correo electrónico enviado a lissetramirezubaldo@gmail.com
+Correo electrónico enviado a roxr5642@gmail.com
+Correo electrónico enviado a viri.roa2525@gmail.com
+Correo electrónico enviado a antoniordzvilla@gmail.com
+Correo electrónico enviado a m.berenice.rodriguezm@gmail.com
+Correo electrónico enviado a yarelyrosales913@gmail.com
+Correo electrónico enviado a jennifer.rosales.serapio@gmail.com
+Correo electrónico enviado a vanessasatolen@gmail.com
+Correo electrónico enviado a jhenifersaldanaenriquez@gmail.com
+Correo electrónico enviado a eniline98@gmail.com
+Correo electrónico enviado a danito.21.ldd@gmail.com
+Correo electrónico enviado a eliasstavoli12@gmail.com
+Correo electrónico enviado a valdezmorales.oscar@gmail.com
+Correo electrónico enviado a alevargasadt@gmail.com
+Correo electrónico enviado a constantino_amaya71@nemdigital.sep.gob.mx
+Correo electrónico enviado a carovarax2705@gmail.com
+Correo electrónico enviado a bruss.game11@gmail.com
+Correo electrónico enviado a karlaivs306@gmail.com
+Correo electrónico enviado a acostaingrid458@gmail.com
+Correo electrónico enviado a aatc19920807@gmail.com
+Correo electrónico enviado a anabanana030419@gmail.com
+Correo electrónico enviado a david65becerril@gmail.com
+Correo electrónico enviado a karvho.boniiz@gmail.com
+Correo electrónico enviado a gc5230997@gmail.com
+Correo electrónico enviado a arelic1402@gmail.com
+Correo electrónico enviado a contrerasrogelio731@gmail.com
+Correo electrónico enviado a jacquelinecortessalazar@gmail.com
+Correo electrónico enviado a rocio.sma05@gmail.com
+Correo electrónico enviado a escamilla.becerrilyahirrr@gmail.com
+Correo electrónico enviado a anakarenmarruffo@gmail.com
+Se han enviado 30 correos. Esperando 30 segundos...
+Reanudando el envío de correos...
+Correo electrónico enviado a shell951204@gmail.com
+Correo electrónico enviado a yezzikdann@gmail.com
+Correo electrónico enviado a afrias.fcpys@gmail.com
+Correo electrónico enviado a galavizgarturo38@gmail.com
+Correo electrónico enviado a jhovany23garcia@gmail.com
+Correo electrónico enviado a a07125956@gmail.com
+Correo electrónico enviado a gumo13618@gmail.com
+Correo electrónico enviado a magtzm01@gmail.com
+Correo electrónico enviado a hpolet977@gmail.com
+Correo electrónico enviado a jhondoves@gmail.com
+Correo electrónico enviado a toraxdaloneuwurs@gmail.com
+Correo electrónico enviado a melyleon40@gmail.com
+Correo electrónico enviado a diegomrv20@gmail.com
+Correo electrónico enviado a xiomara97garcia@gmail.com
+Correo electrónico enviado a oskar137836@gmail.com
+Correo electrónico enviado a andymedinabueno@gmail.com
+Correo electrónico enviado a delirioeren@gmail.com
+Correo electrónico enviado a jesusedwiurc@gmail.com
+Correo electrónico enviado a alan.parra.delgado1987@gmail.com
+Correo electrónico enviado a noemipatg24@gmail.com
+Correo electrónico enviado a lupitapinedamorales@gmail.com
+Correo electrónico enviado a oakrulzz1125@gmail.com
+Correo electrónico enviado a jimena.kamuy@gmail.com
+Correo electrónico enviado a nycky01@gmail.com
+Correo electrónico enviado a 06ange.retana23@gmail.com
+Correo electrónico enviado a yair0032@gmail.com
+Correo electrónico enviado a gaelale122@gmail.com
+Correo electrónico enviado a vurzua61@gmail.com
+Correo electrónico enviado a delmi358.2@gmail.com
+Correo electrónico enviado a luisvaqueragonzalez@gmail.com
+Se han enviado 30 correos. Esperando 30 segundos...
+Reanudando el envío de correos...
+Todos los correos electrónicos han sido enviados.
+  Stopping...
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.1.100:8501
+  External URL: http://189.216.170.167:8501
+
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+  Stopping...
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.1.100:8501
+  External URL: http://189.216.170.167:8501
+
+2025-09-08 21:03:58,679 - INFO - [Foro] - Procesando foro 1/1: https://www.plataforma.unrc.edu.mx/mod/forum/post.php?post=&postformat=0&subject=Foro%3A+Transformación+Digital+en+una+PYME+del+sector+comercio&reply=225559&sesskey=aJQK8eQ5Bu#mformforum
+2025-09-08 21:03:58,680 - INFO - [Foro] - Intentando responder en el foro: https://www.plataforma.unrc.edu.mx/mod/forum/post.php?post=&postformat=0&subject=Foro%3A+Transformación+Digital+en+una+PYME+del+sector+comercio&reply=225559&sesskey=aJQK8eQ5Bu#mformforum
+2025-09-08 21:04:00,902 - INFO - [Foro] - Navegador Firefox (ESR) iniciado. Usando binario: /usr/bin/firefox-esr
+2025-09-08 21:04:02,850 - INFO - [Foro] - Navegando a la página de inicio de sesión: https://www.plataforma.unrc.edu.mx/login/index.php
+2025-09-08 21:04:04,017 - INFO - [Foro] - Inicio de sesión completado.
+2025-09-08 21:04:09,050 - INFO - [Foro] - Navegando al foro: https://www.plataforma.unrc.edu.mx/mod/forum/post.php?post=&postformat=0&subject=Foro%3A+Transformación+Digital+en+una+PYME+del+sector+comercio&reply=225559&sesskey=aJQK8eQ5Bu#mformforum
+2025-09-08 21:04:14,050 - INFO - [Foro] - Intentando encontrar el botón 'Responder'...
+2025-09-08 21:04:19,151 - WARNING - [Foro] - No se encontró/clickeó botón 'Responder' después de 45s. Verificando si el editor ya está visible.
+2025-09-08 21:04:19,203 - INFO - [Foro] - [SCREENSHOT] Captura (sin botón responder) guardada en /tmp/error_boton_responder_1757387059.png
+2025-09-08 21:04:19,207 - INFO - [Foro] - El editor iframe parece estar ya presente sin necesidad de botón.
+2025-09-08 21:04:19,207 - INFO - [Foro] - Esperando iframe del editor...
+2025-09-08 21:04:19,212 - INFO - [Foro] - Cambiado al contexto del iframe del editor.
+2025-09-08 21:04:19,212 - INFO - [Foro] - Esperando cuerpo del editor (TinyMCE)...
+2025-09-08 21:04:19,314 - INFO - [Foro] - Texto de la respuesta enviado al editor.
+2025-09-08 21:04:19,317 - INFO - [Foro] - Vuelto al contexto principal.
+2025-09-08 21:04:19,317 - INFO - [Foro] - Intentando encontrar y clickear 'Enviar al foro'...
+2025-09-08 21:04:21,010 - INFO - [Foro] - Clic en el botón 'Enviar al foro' exitoso.
+2025-09-08 21:04:26,880 - INFO - [Foro] - Navegador cerrado.
+2025-09-08 21:04:26,880 - INFO - [Foro] - Publicación exitosa en: https://www.plataforma.unrc.edu.mx/mod/forum/post.php?post=&postformat=0&subject=Foro%3A+Transformación+Digital+en+una+PYME+del+sector+comercio&reply=225559&sesskey=aJQK8eQ5Bu#mformforum
+  Stopping...
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.1.100:8501
+  External URL: http://189.216.170.167:8501
+
+2025-09-08 21:10:18,895 - INFO - [Foro] - Procesando foro 1/3: https://www.plataforma.unrc.edu.mx/mod/forum/post.php?post=&postformat=0&subject=Foro%3A+Transformación+Digital+en+una+PYME+del+sector+comercio&reply=225559&sesskey=aJQK8eQ5Bu#mformforum
+2025-09-08 21:10:18,896 - INFO - [Foro] - Intentando responder en el foro: https://www.plataforma.unrc.edu.mx/mod/forum/post.php?post=&postformat=0&subject=Foro%3A+Transformación+Digital+en+una+PYME+del+sector+comercio&reply=225559&sesskey=aJQK8eQ5Bu#mformforum
+2025-09-08 21:10:20,910 - INFO - [Foro] - Navegador Firefox (ESR) iniciado. Usando binario: /usr/bin/firefox-esr
+2025-09-08 21:10:22,826 - INFO - [Foro] - Navegando a la página de inicio de sesión: https://www.plataforma.unrc.edu.mx/login/index.php
+2025-09-08 21:10:24,049 - INFO - [Foro] - Inicio de sesión completado.
+2025-09-08 21:10:29,158 - INFO - [Foro] - Navegando al foro: https://www.plataforma.unrc.edu.mx/mod/forum/post.php?post=&postformat=0&subject=Foro%3A+Transformación+Digital+en+una+PYME+del+sector+comercio&reply=225559&sesskey=aJQK8eQ5Bu#mformforum
+2025-09-08 21:10:34,159 - INFO - [Foro] - Intentando encontrar el botón 'Responder'...
+2025-09-08 21:10:39,267 - WARNING - [Foro] - No se encontró/clickeó botón 'Responder' después de 45s. Verificando si el editor ya está visible.
+2025-09-08 21:10:39,308 - INFO - [Foro] - [SCREENSHOT] Captura (sin botón responder) guardada en /tmp/error_boton_responder_1757387439.png
+2025-09-08 21:10:39,311 - INFO - [Foro] - El editor iframe parece estar ya presente sin necesidad de botón.
+2025-09-08 21:10:39,311 - INFO - [Foro] - Esperando iframe del editor...
+2025-09-08 21:10:39,315 - INFO - [Foro] - Cambiado al contexto del iframe del editor.
+2025-09-08 21:10:39,315 - INFO - [Foro] - Esperando cuerpo del editor (TinyMCE)...
+2025-09-08 21:10:39,867 - INFO - [Foro] - Texto de la respuesta enviado al editor.
+2025-09-08 21:10:39,875 - INFO - [Foro] - Vuelto al contexto principal.
+2025-09-08 21:10:39,875 - INFO - [Foro] - Intentando encontrar y clickear 'Enviar al foro'...
+2025-09-08 21:10:41,784 - INFO - [Foro] - Clic en el botón 'Enviar al foro' exitoso.
+2025-09-08 21:10:47,696 - INFO - [Foro] - Navegador cerrado.
+2025-09-08 21:10:47,696 - INFO - [Foro] - Publicación exitosa en: https://www.plataforma.unrc.edu.mx/mod/forum/post.php?post=&postformat=0&subject=Foro%3A+Transformación+Digital+en+una+PYME+del+sector+comercio&reply=225559&sesskey=aJQK8eQ5Bu#mformforum
+2025-09-08 21:10:50,697 - INFO - [Foro] - Procesando foro 2/3: https://www.plataforma.unrc.edu.mx/mod/forum/post.php?post=&postformat=0&subject=Foro%3A+Transformación+Digital+en+una+PYME+del+sector+comercio&reply=225558&sesskey=aJQK8eQ5Bu#mformforum
+2025-09-08 21:10:50,698 - INFO - [Foro] - Intentando responder en el foro: https://www.plataforma.unrc.edu.mx/mod/forum/post.php?post=&postformat=0&subject=Foro%3A+Transformación+Digital+en+una+PYME+del+sector+comercio&reply=225558&sesskey=aJQK8eQ5Bu#mformforum
+2025-09-08 21:10:52,683 - INFO - [Foro] - Navegador Firefox (ESR) iniciado. Usando binario: /usr/bin/firefox-esr
+2025-09-08 21:10:55,158 - INFO - [Foro] - Navegando a la página de inicio de sesión: https://www.plataforma.unrc.edu.mx/login/index.php
+2025-09-08 21:10:56,874 - INFO - [Foro] - Inicio de sesión completado.
+2025-09-08 21:11:02,049 - INFO - [Foro] - Navegando al foro: https://www.plataforma.unrc.edu.mx/mod/forum/post.php?post=&postformat=0&subject=Foro%3A+Transformación+Digital+en+una+PYME+del+sector+comercio&reply=225558&sesskey=aJQK8eQ5Bu#mformforum
+2025-09-08 21:11:07,049 - INFO - [Foro] - Intentando encontrar el botón 'Responder'...
+2025-09-08 21:11:12,141 - WARNING - [Foro] - No se encontró/clickeó botón 'Responder' después de 45s. Verificando si el editor ya está visible.
+2025-09-08 21:11:12,181 - INFO - [Foro] - [SCREENSHOT] Captura (sin botón responder) guardada en /tmp/error_boton_responder_1757387472.png
+2025-09-08 21:11:12,185 - INFO - [Foro] - El editor iframe parece estar ya presente sin necesidad de botón.
+2025-09-08 21:11:12,185 - INFO - [Foro] - Esperando iframe del editor...
+2025-09-08 21:11:12,190 - INFO - [Foro] - Cambiado al contexto del iframe del editor.
+2025-09-08 21:11:12,190 - INFO - [Foro] - Esperando cuerpo del editor (TinyMCE)...
+2025-09-08 21:11:12,812 - INFO - [Foro] - Texto de la respuesta enviado al editor.
+2025-09-08 21:11:12,815 - INFO - [Foro] - Vuelto al contexto principal.
+2025-09-08 21:11:12,815 - INFO - [Foro] - Intentando encontrar y clickear 'Enviar al foro'...
+2025-09-08 21:11:14,783 - INFO - [Foro] - Clic en el botón 'Enviar al foro' exitoso.
+2025-09-08 21:11:20,687 - INFO - [Foro] - Navegador cerrado.
+2025-09-08 21:11:20,687 - INFO - [Foro] - Publicación exitosa en: https://www.plataforma.unrc.edu.mx/mod/forum/post.php?post=&postformat=0&subject=Foro%3A+Transformación+Digital+en+una+PYME+del+sector+comercio&reply=225558&sesskey=aJQK8eQ5Bu#mformforum
+2025-09-08 21:11:23,688 - INFO - [Foro] - Procesando foro 3/3: https://www.plataforma.unrc.edu.mx/mod/forum/post.php?post=&postformat=0&subject=Foro%3A+Transformación+Digital+en+una+PYME+del+sector+comercio&reply=225557&sesskey=aJQK8eQ5Bu#mformforum
+2025-09-08 21:11:23,689 - INFO - [Foro] - Intentando responder en el foro: https://www.plataforma.unrc.edu.mx/mod/forum/post.php?post=&postformat=0&subject=Foro%3A+Transformación+Digital+en+una+PYME+del+sector+comercio&reply=225557&sesskey=aJQK8eQ5Bu#mformforum
+2025-09-08 21:11:25,843 - INFO - [Foro] - Navegador Firefox (ESR) iniciado. Usando binario: /usr/bin/firefox-esr
+2025-09-08 21:11:27,282 - INFO - [Foro] - Navegando a la página de inicio de sesión: https://www.plataforma.unrc.edu.mx/login/index.php
+2025-09-08 21:11:32,453 - INFO - [Foro] - Inicio de sesión completado.
+2025-09-08 21:11:37,858 - INFO - [Foro] - Navegando al foro: https://www.plataforma.unrc.edu.mx/mod/forum/post.php?post=&postformat=0&subject=Foro%3A+Transformación+Digital+en+una+PYME+del+sector+comercio&reply=225557&sesskey=aJQK8eQ5Bu#mformforum
+2025-09-08 21:11:42,858 - INFO - [Foro] - Intentando encontrar el botón 'Responder'...
+2025-09-08 21:11:47,951 - WARNING - [Foro] - No se encontró/clickeó botón 'Responder' después de 45s. Verificando si el editor ya está visible.
+2025-09-08 21:11:48,070 - INFO - [Foro] - [SCREENSHOT] Captura (sin botón responder) guardada en /tmp/error_boton_responder_1757387507.png
+2025-09-08 21:11:48,074 - INFO - [Foro] - El editor iframe parece estar ya presente sin necesidad de botón.
+2025-09-08 21:11:48,074 - INFO - [Foro] - Esperando iframe del editor...
+2025-09-08 21:11:48,079 - INFO - [Foro] - Cambiado al contexto del iframe del editor.
+2025-09-08 21:11:48,079 - INFO - [Foro] - Esperando cuerpo del editor (TinyMCE)...
+2025-09-08 21:11:48,638 - INFO - [Foro] - Texto de la respuesta enviado al editor.
+2025-09-08 21:11:48,642 - INFO - [Foro] - Vuelto al contexto principal.
+2025-09-08 21:11:48,642 - INFO - [Foro] - Intentando encontrar y clickear 'Enviar al foro'...
+2025-09-08 21:11:50,420 - INFO - [Foro] - Clic en el botón 'Enviar al foro' exitoso.
+2025-09-08 21:11:56,302 - INFO - [Foro] - Navegador cerrado.
+2025-09-08 21:11:56,302 - INFO - [Foro] - Publicación exitosa en: https://www.plataforma.unrc.edu.mx/mod/forum/post.php?post=&postformat=0&subject=Foro%3A+Transformación+Digital+en+una+PYME+del+sector+comercio&reply=225557&sesskey=aJQK8eQ5Bu#mformforum
+2025-09-08 21:57:31,030 - INFO - [CapturaElemento] - Iniciando captura de ELEMENTO en URL: https://urc.cdmx.gob.mx/LAD_A2_2025-1/report/log/user.php?id=7669&course=175&mode=all
+2025-09-08 21:57:31,030 - INFO - [CapturaElemento] - Usando selector: [css selector] 'div.chart-area canvas'
+2025-09-08 21:57:31,030 - INFO - [CapturaElemento] - Configuración de Firefox Headless lista.
+2025-09-08 21:57:32,972 - INFO - [CapturaElemento] - Driver Firefox iniciado.
+2025-09-08 21:57:32,974 - INFO - [CapturaElemento] - Navegando a la página de inicio de sesión: https://www.plataforma.unrc.edu.mx/login/index.php
+2025-09-08 21:57:41,064 - INFO - [CapturaElemento] - Inicio de sesión completado (aparentemente).
+2025-09-08 21:57:41,064 - INFO - [CapturaElemento] - Navegando a la URL objetivo: https://urc.cdmx.gob.mx/LAD_A2_2025-1/report/log/user.php?id=7669&course=175&mode=all
+2025-09-08 21:57:42,536 - INFO - [CapturaElemento] - Esperando carga de la página objetivo (body)...
+2025-09-08 21:57:42,550 - INFO - [CapturaElemento] - Página objetivo cargada (body presente).
+2025-09-08 21:57:42,550 - INFO - [CapturaElemento] - Esperando a que el elemento 'div.chart-area canvas' esté presente...
+2025-09-08 21:58:13,009 - ERROR - [CapturaElemento] - Timeout esperando el elemento 'div.chart-area canvas' en https://urc.cdmx.gob.mx/LAD_A2_2025-1/report/log/user.php?id=7669&course=175&mode=all
+2025-09-08 21:58:13,770 - INFO - [CapturaElemento] - Driver Firefox cerrado.
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+  Stopping...
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.1.100:8501
+  External URL: http://189.216.170.167:8501
+
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+  Stopping...
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.1.100:8501
+  External URL: http://189.216.170.167:8501
+
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/user/index.php?id=367
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/user/index.php?id=367
+Error al obtener la URL https://www.plataforma.unrc.edu.mx/user/index.php?id=367. Status: 503
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/user/index.php?id=367
+Error al obtener la URL https://www.plataforma.unrc.edu.mx/user/index.php?id=367. Status: 503
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Error al obtener la URL https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3. Status: 503
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Error al obtener la URL https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3. Status: 503
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Error al obtener la URL https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3. Status: 503
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php
+Token de login encontrado y agregado a los datos de login
+Login exitoso
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131540&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131541&mode=3
+Intentando obtener contenido de: https://www.plataforma.unrc.edu.mx/mod/forum/discuss.php?d=131542&mode=3
+Intentando acceder a la página de login: https://www.plataforma.unrc.edu.mx/login/index.php

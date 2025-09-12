@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+env/
+*.egg-info/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Archivos de entorno/variables
+.env
+.env.*
+
+# SO / Editor
+.DS_Store
+.vscode/
+.idea/
+
+# Datos pesados
+data/
+*.sqlite*
+*.db

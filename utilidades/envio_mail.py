@@ -18,7 +18,7 @@ def enviar_correos(uploaded_file,remitente,contrasena):
     """
     # Parámetros de retardo
     correos_por_lote = 30
-    tiempo_espera = 30  # segundos
+    tiempo_espera = 55  # segundos
     # Configuración de credenciales
     #remitente = "amaya.constantino493@rcastellanos.cdmx.gob.mx"
     #contraseña = "qnvb nyoz efmz kjly"
@@ -39,7 +39,7 @@ def enviar_correos(uploaded_file,remitente,contrasena):
 
                 for i in range(num_filas):
                     row = df.iloc[i]
-                    destinatario = row['Dirección Email']
+                    destinatario = row['Dirección de correo']
                     asunto = row['Subject']
                     html = row['html']
 

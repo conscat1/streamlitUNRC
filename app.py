@@ -797,17 +797,17 @@ with tab7:#"Lista-status"
             # Se asume que las variables 'login_url', 'username', 'password' y 'url_status' están definidas en otro lugar del código.
             # El resultado de esta función se guarda en 'datos_status'.
             if datos_status:
-                st.session_state.df_status = pd.DataFrame(datos_status, columns=["Nombre", "Dirección Email", "Grupo", "Último acceso"])
+                st.session_state.df_status = pd.DataFrame(datos_status, columns=["Nombre", "Dirección de correo", "Grupo", "Último acceso"])
                  # Se crea un DataFrame llamado 'df_status' a partir de los datos extraídos, con las columnas "Nombre", "Dirección Email", "Grupo" y "Último acceso".
                 st.session_state.df_status.columns = st.session_state.df_status.columns.str.strip()
             
             if st.session_state.df_final is not None and st.session_state.df_status is not None:
                 # Se verifica si tanto 'df_final' (el DataFrame unido de los archivos cargados) como 'df_status' (el DataFrame de estatus) tienen datos.
-                if "Dirección Email" in st.session_state.df_final.columns and "Dirección Email" in st.session_state.df_status.columns:
+                if "Dirección de correo" in st.session_state.df_final.columns and "Dirección de correo" in st.session_state.df_status.columns:
                     # Fusionar datos
                     st.session_state.df_final = st.session_state.df_final.merge(
-                        st.session_state.df_status[["Dirección Email", "Grupo", "Último acceso"]], 
-                        on="Dirección Email", 
+                        st.session_state.df_status[["Dirección de correo", "Grupo", "Último acceso"]], 
+                        on="Dirección de correo", 
                         how="left"
                     )
             # Se realiza una fusión (merge) entre 'st.session_state.df_final' y 'st.session_state.df_status'.
@@ -927,7 +927,7 @@ with tab8:  # Personalizado
             )
 
             if st.button("Generar correos"):
-                columnas_requeridas = ["Nombre", "Apellido(s)", "Dirección Email"]
+                columnas_requeridas = ["Nombre", "Apellido(s)", "Dirección de correo"]
 
                 if all(col in df.columns for col in columnas_requeridas):
                     df_final = df[columnas_requeridas].copy()
@@ -1379,7 +1379,7 @@ with tab11: #captura de pantalla
             value=st.session_state.captura_elemento_target_url,
             key="url_captura_elemento_input"
         )
-        url_input = "https://urc.cdmx.gob.mx/LAD_A2_2025-1/report/log/user.php?id=7669&course=175&mode=all"
+        url_input = "https://www.plataforma.unrc.edu.mx/report/log/user.php?id=42661&course=367&mode=all"
         st.session_state.captura_elemento_target_url = url_input
 
         # Selector (podrías incluso hacerlo configurable si cambian)
