@@ -4,6 +4,7 @@ from datetime import datetime, timedelta, timezone
 import re
 DASHES_RE = re.compile(r'^\s*[-–—−]\s*$')  # acepta -, –, —, − con/ sin espacios
 
+
 def extraer_datos_spec(html_content):
     """Extrae los textos de las opciones de un select HTML."""
     soup = BeautifulSoup(html_content, 'html.parser')
@@ -18,21 +19,51 @@ def extraer_datos_spec(html_content):
 
     return opciones
 
-import re
-from bs4 import BeautifulSoup
-from datetime import datetime, timezone, timedelta
 
-# Acepta -, –, —, − con/ sin espacios
-DASHES_RE = re.compile(r'^\s*[-–—−]\s*$')
+
 
 def extraer_datos_articulos(
     html_content: str,
     horas_ventana: int = 36,
     omitir_mismo_autor_que_el_primero: bool = True,
     aceptar_vacio_como_guion: bool = False,   # pon True si el "-" se pinta con CSS/JS y te llega vacío
-    separador: str = " - "
+    separador: str = " - ",
+    ventana_lunes_a_viernes: bool = False     # NUEVO: si True, solo cuenta tiempo hábil (L–V)
 ):
-    """Extrae artículos sin calificación (ratingcount = '-') y devuelve lista de dicts."""
+    """
+    Extrae artículos sin calificación (ratingcount = '-') y devuelve lista de dicts.
+
+    Si ventana_lunes_a_viernes=True, el cálculo de horas transcurridas entre la fecha de publicación
+    y 'ahora' ignora por completo sábados y domingos (cuenta 24h por cada día L–V).
+    """
+
+    # --- helper interno: segundos hábiles (L–V) entre dos datetimes ---
+    def segundos_habiles_entre(inicio: datetime, fin: datetime) -> float:
+        """
+        Cuenta segundos transcurridos ignorando sábados y domingos.
+        Cada día hábil aporta hasta 24h (no restringe a horario laboral).
+        """
+        if fin <= inicio:
+            return 0.0
+
+        # Asegura TZ aware (UTC) para consistencia
+        if inicio.tzinfo is None:
+            inicio = inicio.replace(tzinfo=timezone.utc)
+        if fin.tzinfo is None:
+            fin = fin.replace(tzinfo=timezone.utc)
+
+        cur = inicio
+        total = 0.0
+        while cur < fin:
+            # Inicio del siguiente día
+            siguiente_dia = (cur + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+            tramo_fin = min(fin, siguiente_dia)
+            # 0=lunes ... 6=domingo
+            if cur.weekday() < 5:  # L–V
+                total += (tramo_fin - cur).total_seconds()
+            cur = tramo_fin
+        return total
+
     soup = BeautifulSoup(html_content, 'html.parser')
     articulos = soup.find_all('article')
     resultados = []
@@ -60,16 +91,24 @@ def extraer_datos_articulos(
         if not sin_calificacion:
             continue
 
-        # --- ventana de tiempo ---
+        # --- ventana de tiempo (con opción L–V) ---
         dentro_de_tiempo = True
         tiempo = articulo.find('time')
         fecha_txt = tiempo.get_text(strip=True) if tiempo else None
         datetime_tiempo = tiempo.get('datetime') if tiempo else None
+
         if datetime_tiempo:
             try:
                 fecha_publicacion = datetime.fromisoformat(datetime_tiempo.replace('Z', '+00:00'))
                 ahora = datetime.now(timezone.utc)
-                if (ahora - fecha_publicacion) > timedelta(hours=horas_ventana):
+
+                if ventana_lunes_a_viernes:
+                    segundos = segundos_habiles_entre(fecha_publicacion, ahora)
+                    horas_transcurridas = segundos / 3600.0
+                else:
+                    horas_transcurridas = (ahora - fecha_publicacion).total_seconds() / 3600.0
+
+                if horas_transcurridas > float(horas_ventana):
                     dentro_de_tiempo = False
             except ValueError:
                 # fecha no convertible: deja dentro_de_tiempo=True por defecto
@@ -98,6 +137,7 @@ def extraer_datos_articulos(
         })
 
     return resultados
+
 
 
 
