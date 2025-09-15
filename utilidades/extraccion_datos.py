@@ -25,7 +25,7 @@ def extraer_datos_articulos(
     omitir_mismo_autor_que_el_primero: bool = True,
     aceptar_vacio_como_guion: bool = False,   # pon True si el "-" se pinta con CSS/JS y te llega vacío
     separador: str = " - ",
-    ventana_lunes_a_viernes: bool = False     # NUEVO: si True, solo cuenta tiempo hábil (L–V)
+    ventana_lunes_a_viernes: bool = True     # NUEVO: si True, solo cuenta tiempo hábil (L–V)
 ):
     """
     Extrae artículos sin calificación (ratingcount = '-') y devuelve lista de dicts.
