@@ -19,9 +19,6 @@ def extraer_datos_spec(html_content):
 
     return opciones
 
-
-
-
 def extraer_datos_articulos(
     html_content: str,
     horas_ventana: int = 36,
