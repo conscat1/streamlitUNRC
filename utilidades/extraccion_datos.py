@@ -2,11 +2,6 @@
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta, timezone, time
 import re
-
-
-from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
-
-from bs4 import BeautifulSoup
 DASHES_RE = re.compile(r'^\s*[-–—−]\s*$')  # acepta -, –, —, − con/ sin espacios
 
 
@@ -27,173 +22,178 @@ def extraer_datos_spec(html_content):
 
 
 
-# --- CONSTANTES ---
-# Es buena práctica definir valores fijos como constantes para mayor claridad.
-SEGUNDOS_POR_HORA = 3600.0
-DIAS_LABORALES_POR_SEMANA = 5
-SEGUNDOS_DIA_LABORAL = 24 * SEGUNDOS_POR_HORA
-DASHES_RE = re.compile(r'^[\s\u00a0—-]*$')
-
-# ==============================================================================
-# 1. FUNCIONES AUXILIARES DE TIEMPO (Refactorizadas fuera de la función principal)
-#    Esto mejora la legibilidad, permite pruebas y su reutilización.
-# ==============================================================================
-
-def obtener_tz_local(tz_name: str = 'America/Mexico_City') -> ZoneInfo:
-    """
-    Obtiene un objeto de zona horaria a partir de un nombre IANA.
-    Maneja el horario de verano automáticamente.
-    """
-    try:
-        return ZoneInfo(tz_name)
-    except ZoneInfoNotFoundError:
-        # Si la zona horaria no es válida, regresa UTC como fallback seguro.
-        return ZoneInfo('UTC')
-
-def parse_to_local(dt_str: str, tz_local: ZoneInfo) -> datetime | None:
-    """
-    Convierte una cadena de fecha ISO a un objeto datetime en la zona horaria local especificada.
-    """
-    if not dt_str:
-        return None
-    try:
-        # El método fromisoformat es robusto.
-        dt = datetime.fromisoformat(dt_str.replace('Z', '+00:00'))
-        # Si no tiene zona horaria, se asume que ya estaba en hora local.
-        if dt.tzinfo is None:
-            return dt.replace(tzinfo=tz_local)
-        # Si tiene zona horaria (ej. UTC), se convierte a la local.
-        return dt.astimezone(tz_local)
-    except (ValueError, TypeError):
-        return None
-
-def mover_a_lunes_siguiente(dt: datetime) -> datetime:
-    """
-    Si una fecha cae en fin de semana, la mueve al lunes siguiente a la misma hora.
-    """
-    if dt.weekday() >= 5:  # 5: Sábado, 6: Domingo
-        dias_para_lunes = 7 - dt.weekday()
-        return dt + timedelta(days=dias_para_lunes)
-    return dt
-
-def calcular_horas_habiles(inicio_local: datetime, fin_local: datetime) -> float:
-    """
-    Calcula las horas hábiles (L-V) entre dos momentos, de forma eficiente y sin bucles.
-    Si la fecha de inicio es un fin de semana, el conteo empieza el lunes siguiente.
-    """
-    if fin_local <= inicio_local:
-        return 0.0
-
-    # 1. Ajustar la fecha de inicio si cae en fin de semana.
-    cur = mover_a_lunes_siguiente(inicio_local)
-    if fin_local <= cur:
-        return 0.0
-
-    total_segundos = 0
-
-    # 2. Manejar días completos entre las fechas.
-    # Se normalizan las fechas a medianoche para contar días enteros.
-    dia_inicio_normalizado = datetime.combine(cur.date(), time(0), tzinfo=cur.tzinfo)
-    dia_fin_normalizado = datetime.combine(fin_local.date(), time(0), tzinfo=fin_local.tzinfo)
-    
-    # Calcular segundos del primer día parcial (desde `cur` hasta medianoche)
-    if cur.weekday() < 5:
-        siguiente_medianoche = dia_inicio_normalizado + timedelta(days=1)
-        total_segundos += (min(fin_local, siguiente_medianoche) - cur).total_seconds()
-
-    # Calcular segundos de los días completos intermedios
-    dias_intermedios = (dia_fin_normalizado - (dia_inicio_normalizado + timedelta(days=1))).days
-    if dias_intermedios > 0:
-        # np.busday_count es ideal para esto, pero para no agregar dependencias:
-        dias_habiles_completos = 0
-        for i in range(dias_intermedios):
-            dia = (dia_inicio_normalizado + timedelta(days=i + 1))
-            if dia.weekday() < 5:
-                dias_habiles_completos += 1
-        total_segundos += dias_habiles_completos * SEGUNDOS_DIA_LABORAL
-
-    # Calcular segundos del último día parcial (desde medianoche hasta `fin_local`)
-    # Solo si el día final es diferente al de inicio.
-    if fin_local.date() > cur.date() and fin_local.weekday() < 5:
-        total_segundos += (fin_local - dia_fin_normalizado).total_seconds()
-
-    return total_segundos / SEGUNDOS_POR_HORA
-
-# ==============================================================================
-# FUNCIÓN PRINCIPAL MEJORADA
-# ==============================================================================
-
-def extraer_datos_articulos_revisado(
+def extraer_datos_articulos(
     html_content: str,
-    horas_ventana_rojo: int = 36,
-    horas_ventana_naranja: int = 24,
+    horas_ventana: int = 36,                 # UMBRAL 2 → rojo (>=)
+    horas_ventana_1: int = 24,               # UMBRAL 1 → naranja (>=)
     omitir_mismo_autor_que_el_primero: bool = True,
-    zona_horaria: str = 'America/Mexico_City' # Parámetro flexible para la zona horaria
+    aceptar_vacio_como_guion: bool = False,  # True si el "-" lo pinta el front y llega vacío
+    separador: str = " - ",
+    ventana_lunes_a_viernes: bool = True,   # True: ignora fines de semana en el conteo
+    local_utc_offset_hours: int = -6         # Hora local si el datetime no trae tz / para convertir desde UTC
 ):
     """
-    Versión refactorizada que usa manejo de zonas horarias robusto y una estructura más clara.
+    Reglas de tiempo y color:
+    - Si ventana_lunes_a_viernes = False → horas NATURALES (incluyen fines de semana).
+    - Si ventana_lunes_a_viernes = True  → horas NATURALES SOLO en días laborales (L–V, 24h/día).
+      * Si la publicación fue sábado/domingo, el conteo inicia el lunes a la MISMA hora local.
+
+    Colores:
+    - 'rojo'    si horas_ref >= horas_ventana        (p.ej., 36)
+    - 'naranja' si NO rojo y horas_ref >= horas_ventana_1 (p.ej., 24)
+    - 'default' en caso contrario
+
+    'dentro_de_tiempo' se mantiene por compatibilidad (usa el umbral "grande").
     """
+
+    # ------------------------ Helpers de zona horaria (LOCAL) ------------------------
+    def _tz_local():
+        return timezone(timedelta(hours=local_utc_offset_hours))
+
+    def parse_to_local(dt_str: str) -> datetime | None:
+        """
+        Convierte la cadena ISO a datetime en zona local:
+        - Si termina con 'Z' (UTC) o trae offset → convierte a LOCAL.
+        - Si no trae tz → asume LOCAL.
+        """
+        if not dt_str:
+            return None
+        s = dt_str.strip()
+        try:
+            if s.endswith('Z'):
+                dt = datetime.fromisoformat(s.replace('Z', '+00:00')).astimezone(_tz_local())
+            else:
+                dt = datetime.fromisoformat(s)
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=_tz_local())
+                else:
+                    dt = dt.astimezone(_tz_local())
+            return dt
+        except Exception:
+            return None
+
+    # Si cae en finde, mover al LUNES MISMA HORA (en LOCAL)
+    def mover_a_lunes_misma_hora_local(dt_local: datetime) -> datetime:
+        if dt_local.weekday() < 5:
+            return dt_local
+        dias_a_lunes = (7 - dt_local.weekday()) % 7
+        if dias_a_lunes == 0:
+            dias_a_lunes = 1
+        nuevo_dia = (dt_local + timedelta(days=dias_a_lunes)).date()
+        return datetime.combine(nuevo_dia, dt_local.timetz())
+
+    # Segundos "hábiles" L–V (24h/día) entre dos datetimes LOCAL,
+    # arrancando el conteo el lunes MISMA HORA si inicio fue finde
+    def segundos_habiles_local(inicio_local: datetime, fin_local: datetime) -> float:
+        if fin_local <= inicio_local:
+            return 0.0
+        cur = mover_a_lunes_misma_hora_local(inicio_local)
+        if fin_local <= cur:
+            return 0.0
+
+        total = 0.0
+        while cur < fin_local:
+            # fin del día actual (medianoche local)
+            siguiente_dia = datetime.combine(
+                (cur + timedelta(days=1)).date(),
+                time(0, 0, 0, tzinfo=cur.tzinfo)
+            )
+            tramo_fin = min(fin_local, siguiente_dia)
+            if cur.weekday() < 5:  # 0..4 = L–V
+                total += (tramo_fin - cur).total_seconds()
+            cur = tramo_fin
+        return total
+
+    # ------------------------ Parse HTML ------------------------
     soup = BeautifulSoup(html_content, 'html.parser')
     articulos = soup.find_all('article')
-    if not articulos:
-        return []
-
-    # Se obtiene la zona horaria una sola vez.
-    tz_local = obtener_tz_local(zona_horaria)
-    ahora_local = datetime.now(tz_local)
-    
     resultados = []
-    
-    autor_referencia_div = articulos[0].select_one('div.mb-3[tabindex="-1"], div.mb-3')
-    autor_referencia = autor_referencia_div.find('a').get_text(strip=True) if autor_referencia_div and autor_referencia_div.find('a') else None
+    if not articulos:
+        return resultados
+
+    # Autor de referencia (si existe) para omitir duplicados si lo deseas
+    primer_articulo = articulos[0]
+    div_nombre_primero = primer_articulo.select_one('div.mb-3[tabindex="-1"], div.mb-3')
+    autor_referencia = (div_nombre_primero.find('a').get_text(strip=True)
+                        if div_nombre_primero and div_nombre_primero.find('a') else None)
+
+    # Hora "ahora" en LOCAL (clave para coherencia con días L–V)
+    ahora_local = datetime.now(_tz_local())
 
     for articulo in articulos:
         div_nombre = articulo.select_one('div.mb-3[tabindex="-1"], div.mb-3')
-        autor_actual_a = div_nombre.find('a') if div_nombre else None
-        autor_actual = autor_actual_a.get_text(strip=True) if autor_actual_a else "Autor Desconocido"
+        autor_actual = (div_nombre.find('a').get_text(strip=True)
+                        if div_nombre and div_nombre.find('a') else None)
 
         if omitir_mismo_autor_que_el_primero and autor_referencia and autor_actual == autor_referencia:
             continue
 
-        rating_span = articulo.find('span', class_='ratingcount')
-        rating_text = rating_span.get_text(strip=True).replace('\u00a0', ' ') if rating_span else ''
-        if not (DASHES_RE.match(rating_text) or rating_text == ''):
+        # --- detección robusta de "sin calificación" ---
+        rc = articulo.find('span', class_='ratingcount')
+        txt = rc.get_text(strip=True).replace('\u00a0', ' ') if rc else ''
+        sin_calificacion = bool(DASHES_RE.match(txt)) or (aceptar_vacio_como_guion and txt == '')
+        if not sin_calificacion:
             continue
 
+        # --- tiempos y estado ---
+        dentro_de_tiempo = True
         estado = "default"
+        horas_ref = None
+        horas_naturales = None
         horas_habiles = None
-        
-        tiempo_tag = articulo.find('time')
-        dt_attr = tiempo_tag.get('datetime') if tiempo_tag else None
+
+        tiempo = articulo.find('time')
+        fecha_txt = tiempo.get_text(strip=True) if tiempo else None
+        dt_attr = tiempo.get('datetime') if tiempo else None
 
         if dt_attr:
-            fecha_publicacion_local = parse_to_local(dt_attr, tz_local)
-            
-            if fecha_publicacion_local:
-                # El cálculo de horas naturales es simple
-                horas_naturales = (ahora_local - fecha_publicacion_local).total_seconds() / SEGUNDOS_POR_HORA
-                
-                # El cálculo de horas hábiles ahora usa la función optimizada.
-                # Tu lógica original con el flag `ventana_lunes_a_viernes` está implícita aquí.
-                # Para mantenerla explícita, podrías hacer:
-                # horas_ref = calcular_horas_habiles(...) if ventana_lunes_a_viernes else horas_naturales
-                
-                horas_habiles = calcular_horas_habiles(fecha_publicacion_local, ahora_local)
+            fecha_local = parse_to_local(dt_attr)
+            if fecha_local:
+                # NATURALES: diferencia local directa
+                horas_naturales = (ahora_local - fecha_local).total_seconds() / 3600.0
 
-                # Asignación de estado basada en horas hábiles
-                if horas_habiles >= horas_ventana_rojo:
-                    estado = "rojo"
-                elif horas_habiles >= horas_ventana_naranja:
-                    estado = "naranja"
-        
-        # Construcción del resultado
-        fecha_txt = tiempo_tag.get_text(strip=True) if tiempo_tag else "Fecha Desconocida"
-        nombre = f"{autor_actual} - {fecha_txt}"
+                # HÁBILES L–V: arrancando lunes MISMA HORA si finde
+                horas_habiles = segundos_habiles_local(fecha_local, ahora_local) / 3600.0
+
+                # Selección según flag
+                horas_ref = horas_habiles if ventana_lunes_a_viernes else horas_naturales
+
+                # Compatibilidad: dentro_de_tiempo con el umbral grande
+                # (si quieres que 36h exactas ya NO estén "dentro", cambia <= por <)
+                dentro_de_tiempo = (horas_ref is None) or (horas_ref <= float(horas_ventana))
+
+                # Colores (umbral inclusivo, como pediste: "han pasado 24/36 horas")
+                if horas_ref is not None:
+                    if horas_ref >= float(horas_ventana):
+                        estado = "rojo"
+                    elif horas_ref >= float(horas_ventana_1):
+                        estado = "naranja"
+                    else:
+                        estado = "default"
+
+        # --- construcción del nombre SIN "de" pegado ---
+        autor_txt = (div_nombre.find('a').get_text(strip=True)
+                     if div_nombre and div_nombre.find('a') else None)
+
+        if autor_txt and fecha_txt:
+            nombre = f"{autor_txt}{separador}{fecha_txt}"
+        elif autor_txt:
+            nombre = autor_txt
+        elif div_nombre:
+            raw = div_nombre.get_text(separator=' ', strip=True)
+            raw = re.sub(r'^\s*por\s*', '', raw, flags=re.IGNORECASE)
+            raw = re.sub(r'^\s*de(?=[A-ZÁÉÍÓÚÑ])', '', raw)
+            nombre = raw or "Nombre no encontrado"
+        else:
+            nombre = "Nombre no encontrado"
 
         resultados.append({
             "nombre": nombre,
-            "estado": estado,
-            "horas_habiles_calculadas": round(horas_habiles, 2) if horas_habiles is not None else None,
+            "dentro_de_tiempo": dentro_de_tiempo,  # retrocompatible
+            "estado": estado,                       # 'default' | 'naranja' | 'rojo'
+            "horas_referencia": horas_ref,          # la usada para colorear (depende del flag)
+            "horas_naturales": horas_naturales,
+            "horas_habiles": horas_habiles
         })
 
     return resultados
