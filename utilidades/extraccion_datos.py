@@ -1,6 +1,6 @@
 # utilidades/extraccion_datos.py
 from bs4 import BeautifulSoup
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone, time
 import re
 DASHES_RE = re.compile(r'^\s*[-–—−]\s*$')  # acepta -, –, —, − con/ sin espacios
 
