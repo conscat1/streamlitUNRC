@@ -2,6 +2,11 @@
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta, timezone, time
 import re
+
+
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+
+from bs4 import BeautifulSoup
 DASHES_RE = re.compile(r'^\s*[-–—−]\s*$')  # acepta -, –, —, − con/ sin espacios
 
 
@@ -21,13 +26,6 @@ def extraer_datos_spec(html_content):
 
 
 
-# --- Importaciones necesarias ---
-import re
-from datetime import datetime, time, timedelta
-# zoneinfo es la forma moderna y recomendada para manejar zonas horarias (Python 3.9+)
-from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
-
-from bs4 import BeautifulSoup
 
 # --- CONSTANTES ---
 # Es buena práctica definir valores fijos como constantes para mayor claridad.
