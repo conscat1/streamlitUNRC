@@ -29,7 +29,7 @@ def extraer_datos_articulos(
     omitir_mismo_autor_que_el_primero: bool = True,
     aceptar_vacio_como_guion: bool = False,  # True si el "-" lo pinta el front y llega vacío
     separador: str = " - ",
-    ventana_lunes_a_viernes: bool = False,   # True: ignora fin de semana
+    ventana_lunes_a_viernes: bool = True,   # True: ignora fin de semana
     local_utc_offset_hours: int = -6         # Para datetimes SIN zona → se asume hora local (CDMX = -6)
 ):
     """
