@@ -22,49 +22,94 @@ def extraer_datos_spec(html_content):
 
 
 
-
 def extraer_datos_articulos(
     html_content: str,
-    horas_ventana: int = 36,                 # UMBRAL 2 (rojo)
-    horas_ventana_1: int = 24,               # UMBRAL 1 (naranja)
+    horas_ventana: int = 36,                 # UMBRAL 2 → rojo
+    horas_ventana_1: int = 24,               # UMBRAL 1 → naranja
     omitir_mismo_autor_que_el_primero: bool = True,
-    aceptar_vacio_como_guion: bool = False,  # True si el "-" lo pinta el front y te llega vacío
+    aceptar_vacio_como_guion: bool = False,  # True si el "-" lo pinta el front y llega vacío
     separador: str = " - ",
-    ventana_lunes_a_viernes: bool = False    # True: ignora sábados y domingos en el cómputo
+    ventana_lunes_a_viernes: bool = False,   # True: ignora fin de semana
+    local_utc_offset_hours: int = -6         # Para datetimes SIN zona → se asume hora local (CDMX = -6)
 ):
     """
     Extrae artículos sin calificación (ratingcount='-') y devuelve lista de dicts.
-
-    Reglas de tiempo:
-    - Si ventana_lunes_a_viernes = False -> horas naturales (incluye fines de semana).
-    - Si ventana_lunes_a_viernes = True  -> horas naturales SOLO en días laborales (L–V, 24h/día).
-      * El tiempo de sábado y domingo NO suma.
+    Cómputo de horas:
+    - ventana_lunes_a_viernes=False → horas naturales (incluye fines de semana).
+    - ventana_lunes_a_viernes=True  → horas naturales SOLO en días laborales (L–V, 24h/día).
+      * Si la publicación fue sábado/domingo, el conteo INICIA el lunes a la MISMA hora de publicación.
 
     Colores:
-    - estado = "rojo"    si horas > horas_ventana        (p.ej., > 36)
-    - estado = "naranja" si NO rojo y horas > horas_ventana_1 (p.ej., > 24)
-    - estado = "default" en caso contrario
+    - 'rojo'    si horas_ref > horas_ventana
+    - 'naranja' si no es rojo y horas_ref > horas_ventana_1
+    - 'default' en caso contrario
+
+    'dentro_de_tiempo' mantiene compatibilidad previa comparando contra 'horas_ventana'.
     """
 
-    # --- helper: segundos hábiles (L–V, 24h/día) entre dos datetimes ---
-    def segundos_habiles_entre(inicio: datetime, fin: datetime) -> float:
-        """Cuenta segundos transcurridos ignorando sábados y domingos."""
+    def _tz_local():
+        return timezone(timedelta(hours=local_utc_offset_hours))
+
+    # --- Normalización robusta de datetimes ISO ---
+    def parse_iso_datetime(dt_str: str) -> datetime | None:
+        """
+        Convierte ISO (con o sin 'Z'/offset) a datetime con tzinfo.
+        Si no trae tz, asume zona local (p. ej. CDMX UTC-6) para evitar desfases.
+        """
+        if not dt_str:
+            return None
+        s = dt_str.strip()
+        try:
+            if s.endswith('Z'):
+                # UTC explícito
+                return datetime.fromisoformat(s.replace('Z', '+00:00'))
+            # Si tiene offset (+/-HH:MM) lo respeta; si no, lo tratamos como hora local
+            dt = datetime.fromisoformat(s)
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=_tz_local())
+            return dt
+        except Exception:
+            return None
+
+    # --- Ajuste: si inicio cae en fin de semana, mover a lunes MISMA HORA ---
+    def mover_a_lunes_misma_hora(si_dt: datetime) -> datetime:
+        """
+        Si si_dt es sábado (5) o domingo (6), mueve al siguiente lunes manteniendo la misma hora/minuto/seg.
+        Si es L–V, no lo toca.
+        """
+        if si_dt.weekday() < 5:
+            return si_dt
+        # días hasta el próximo lunes
+        dias_a_lunes = (7 - si_dt.weekday()) % 7
+        if dias_a_lunes == 0:
+            dias_a_lunes = 1  # por seguridad, aunque no debería ocurrir
+        nuevo_dia = (si_dt + timedelta(days=dias_a_lunes)).date()
+        # preservar hora y tz
+        return datetime.combine(nuevo_dia, si_dt.timetz())
+
+    # --- Segundos "hábiles" (L–V) entre inicio y fin, iniciando en lunes misma hora si inicio fue en finde ---
+    def segundos_habiles_entre_preservando_hora(inicio: datetime, fin: datetime) -> float:
+        """
+        Cuenta segundos ignorando sábado/domingo. Si 'inicio' fue fin de semana,
+        comienza el conteo el lunes a la MISMA hora del 'inicio'.
+        """
         if fin <= inicio:
             return 0.0
-
-        # Asegura TZ aware (UTC) para consistencia
+        # Asegurar tz aware
         if inicio.tzinfo is None:
-            inicio = inicio.replace(tzinfo=timezone.utc)
+            inicio = inicio.replace(tzinfo=_tz_local())
         if fin.tzinfo is None:
-            fin = fin.replace(tzinfo=timezone.utc)
+            fin = fin.replace(tzinfo=_tz_local())
 
-        cur = inicio
+        cur = mover_a_lunes_misma_hora(inicio)
+        if fin <= cur:
+            return 0.0
+
         total = 0.0
         while cur < fin:
-            # medianoche del día siguiente
-            siguiente_dia = (cur + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+            # fin del día actual en la misma zona
+            siguiente_dia = datetime.combine((cur + timedelta(days=1)).date(), time(0, 0, 0, tzinfo=cur.tzinfo))
             tramo_fin = min(fin, siguiente_dia)
-            # 0=lunes ... 6=domingo
             if cur.weekday() < 5:  # L–V
                 total += (tramo_fin - cur).total_seconds()
             cur = tramo_fin
@@ -100,34 +145,32 @@ def extraer_datos_articulos(
         # --- tiempos y estado ---
         dentro_de_tiempo = True
         estado = "default"
-        horas_ref = None            # horas usadas para comparar umbrales (según ventana_lunes_a_viernes)
-        horas_naturales = None      # info útil para depurar/mostrar
-        horas_habiles = None        # info útil para depurar/mostrar
+        horas_ref = None            # horas usadas para umbrales (según ventana_lunes_a_viernes)
+        horas_naturales = None
+        horas_habiles = None
 
         tiempo = articulo.find('time')
         fecha_txt = tiempo.get_text(strip=True) if tiempo else None
         datetime_tiempo = tiempo.get('datetime') if tiempo else None
 
         if datetime_tiempo:
-            try:
-                # Normaliza "Z" a +00:00
-                fecha_publicacion = datetime.fromisoformat(datetime_tiempo.replace('Z', '+00:00'))
-                if fecha_publicacion.tzinfo is None:
-                    fecha_publicacion = fecha_publicacion.replace(tzinfo=timezone.utc)
-
+            fecha_publicacion = parse_iso_datetime(datetime_tiempo)
+            if fecha_publicacion:
                 ahora = datetime.now(timezone.utc)
 
-                # Calcula ambas para registro
+                # NATURALES (continuas)
                 horas_naturales = (ahora - fecha_publicacion).total_seconds() / 3600.0
-                horas_habiles = segundos_habiles_entre(fecha_publicacion, ahora) / 3600.0
 
-                # Selecciona la referencia según el switch
+                # HÁBILES L–V (iniciando lunes MISMA HORA si el post fue en finde)
+                horas_habiles = segundos_habiles_entre_preservando_hora(fecha_publicacion, ahora) / 3600.0
+
+                # selector según flag
                 horas_ref = horas_habiles if ventana_lunes_a_viernes else horas_naturales
 
-                # Compatibilidad de 'dentro_de_tiempo' (usa el umbral "grande")
+                # compatibilidad: dentro_de_tiempo con el umbral "grande"
                 dentro_de_tiempo = (horas_ref is None) or (horas_ref <= float(horas_ventana))
 
-                # Colores (sin verde)
+                # colores (sin verde)
                 if horas_ref is not None:
                     if horas_ref > float(horas_ventana):
                         estado = "rojo"
@@ -135,10 +178,6 @@ def extraer_datos_articulos(
                         estado = "naranja"
                     else:
                         estado = "default"
-
-            except ValueError:
-                # fecha no convertible → deja valores por defecto
-                pass
 
         # --- construcción del nombre SIN "de" pegado ---
         autor_txt = (div_nombre.find('a').get_text(strip=True)
@@ -158,9 +197,9 @@ def extraer_datos_articulos(
 
         resultados.append({
             "nombre": nombre,
-            "dentro_de_tiempo": dentro_de_tiempo,  # mantiene semántica previa
+            "dentro_de_tiempo": dentro_de_tiempo,  # semántica previa intacta
             "estado": estado,                       # 'default' | 'naranja' | 'rojo'
-            "horas_referencia": horas_ref,          # horas usadas para calcular estado/ventana
+            "horas_referencia": horas_ref,          # para depurar/mostrar si quieres
             "horas_naturales": horas_naturales,
             "horas_habiles": horas_habiles
         })
