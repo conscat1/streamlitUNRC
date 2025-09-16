@@ -19,27 +19,36 @@ def extraer_datos_spec(html_content):
 
     return opciones
 
+
+
+
+
 def extraer_datos_articulos(
     html_content: str,
-    horas_ventana: int = 36,
+    horas_ventana: int = 36,                 # UMBRAL 2 (rojo)
+    horas_ventana_1: int = 24,               # UMBRAL 1 (naranja)
     omitir_mismo_autor_que_el_primero: bool = True,
-    aceptar_vacio_como_guion: bool = False,   # pon True si el "-" se pinta con CSS/JS y te llega vacío
+    aceptar_vacio_como_guion: bool = False,  # True si el "-" lo pinta el front y te llega vacío
     separador: str = " - ",
-    ventana_lunes_a_viernes: bool = True     # NUEVO: si True, solo cuenta tiempo hábil (L–V)
+    ventana_lunes_a_viernes: bool = False    # True: ignora sábados y domingos en el cómputo
 ):
     """
-    Extrae artículos sin calificación (ratingcount = '-') y devuelve lista de dicts.
+    Extrae artículos sin calificación (ratingcount='-') y devuelve lista de dicts.
 
-    Si ventana_lunes_a_viernes=True, el cálculo de horas transcurridas entre la fecha de publicación
-    y 'ahora' ignora por completo sábados y domingos (cuenta 24h por cada día L–V).
+    Reglas de tiempo:
+    - Si ventana_lunes_a_viernes = False -> horas naturales (incluye fines de semana).
+    - Si ventana_lunes_a_viernes = True  -> horas naturales SOLO en días laborales (L–V, 24h/día).
+      * El tiempo de sábado y domingo NO suma.
+
+    Colores:
+    - estado = "rojo"    si horas > horas_ventana        (p.ej., > 36)
+    - estado = "naranja" si NO rojo y horas > horas_ventana_1 (p.ej., > 24)
+    - estado = "default" en caso contrario
     """
 
-    # --- helper interno: segundos hábiles (L–V) entre dos datetimes ---
+    # --- helper: segundos hábiles (L–V, 24h/día) entre dos datetimes ---
     def segundos_habiles_entre(inicio: datetime, fin: datetime) -> float:
-        """
-        Cuenta segundos transcurridos ignorando sábados y domingos.
-        Cada día hábil aporta hasta 24h (no restringe a horario laboral).
-        """
+        """Cuenta segundos transcurridos ignorando sábados y domingos."""
         if fin <= inicio:
             return 0.0
 
@@ -52,7 +61,7 @@ def extraer_datos_articulos(
         cur = inicio
         total = 0.0
         while cur < fin:
-            # Inicio del siguiente día
+            # medianoche del día siguiente
             siguiente_dia = (cur + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
             tramo_fin = min(fin, siguiente_dia)
             # 0=lunes ... 6=domingo
@@ -88,27 +97,47 @@ def extraer_datos_articulos(
         if not sin_calificacion:
             continue
 
-        # --- ventana de tiempo (con opción L–V) ---
+        # --- tiempos y estado ---
         dentro_de_tiempo = True
+        estado = "default"
+        horas_ref = None            # horas usadas para comparar umbrales (según ventana_lunes_a_viernes)
+        horas_naturales = None      # info útil para depurar/mostrar
+        horas_habiles = None        # info útil para depurar/mostrar
+
         tiempo = articulo.find('time')
         fecha_txt = tiempo.get_text(strip=True) if tiempo else None
         datetime_tiempo = tiempo.get('datetime') if tiempo else None
 
         if datetime_tiempo:
             try:
+                # Normaliza "Z" a +00:00
                 fecha_publicacion = datetime.fromisoformat(datetime_tiempo.replace('Z', '+00:00'))
+                if fecha_publicacion.tzinfo is None:
+                    fecha_publicacion = fecha_publicacion.replace(tzinfo=timezone.utc)
+
                 ahora = datetime.now(timezone.utc)
 
-                if ventana_lunes_a_viernes:
-                    segundos = segundos_habiles_entre(fecha_publicacion, ahora)
-                    horas_transcurridas = segundos / 3600.0
-                else:
-                    horas_transcurridas = (ahora - fecha_publicacion).total_seconds() / 3600.0
+                # Calcula ambas para registro
+                horas_naturales = (ahora - fecha_publicacion).total_seconds() / 3600.0
+                horas_habiles = segundos_habiles_entre(fecha_publicacion, ahora) / 3600.0
 
-                if horas_transcurridas > float(horas_ventana):
-                    dentro_de_tiempo = False
+                # Selecciona la referencia según el switch
+                horas_ref = horas_habiles if ventana_lunes_a_viernes else horas_naturales
+
+                # Compatibilidad de 'dentro_de_tiempo' (usa el umbral "grande")
+                dentro_de_tiempo = (horas_ref is None) or (horas_ref <= float(horas_ventana))
+
+                # Colores (sin verde)
+                if horas_ref is not None:
+                    if horas_ref > float(horas_ventana):
+                        estado = "rojo"
+                    elif horas_ref > float(horas_ventana_1):
+                        estado = "naranja"
+                    else:
+                        estado = "default"
+
             except ValueError:
-                # fecha no convertible: deja dentro_de_tiempo=True por defecto
+                # fecha no convertible → deja valores por defecto
                 pass
 
         # --- construcción del nombre SIN "de" pegado ---
@@ -120,7 +149,6 @@ def extraer_datos_articulos(
         elif autor_txt:
             nombre = autor_txt
         elif div_nombre:
-            # Fallback conservador si no hay <a>: limpia "por " o "de" pegado a mayúscula
             raw = div_nombre.get_text(separator=' ', strip=True)
             raw = re.sub(r'^\s*por\s*', '', raw, flags=re.IGNORECASE)
             raw = re.sub(r'^\s*de(?=[A-ZÁÉÍÓÚÑ])', '', raw)
@@ -130,10 +158,15 @@ def extraer_datos_articulos(
 
         resultados.append({
             "nombre": nombre,
-            "dentro_de_tiempo": dentro_de_tiempo
+            "dentro_de_tiempo": dentro_de_tiempo,  # mantiene semántica previa
+            "estado": estado,                       # 'default' | 'naranja' | 'rojo'
+            "horas_referencia": horas_ref,          # horas usadas para calcular estado/ventana
+            "horas_naturales": horas_naturales,
+            "horas_habiles": horas_habiles
         })
 
     return resultados
+
 
 
 
